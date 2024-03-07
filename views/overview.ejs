@@ -1,0 +1,13 @@
+<%- include('./partials/head') %>
+<main>
+    <% items.forEach(item => { %>
+        <p>
+            <a href="./detail/<%= item.id %>"><%= item.title %></a>
+        </p>
+        <img src="<%= item.afbeelding %>" alt="item-afbeelding">
+        <p>
+    <%= item.id %>
+        </p>
+    <% }) %>
+</main>
+<%- include('./partials/foot') %>

@@ -33,8 +33,18 @@ app.get('/', function(request, response) {
     console.log(apiItem)
 })
 
-app.get('/detail/:id', function(request, response){
+app.get('/overview', function(request, response) {
     fetchJson(apiItem).then((items) => { console.log(items.data)
+        response.render('overview', {
+            
+            items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
+        });
+    })
+    console.log(apiItem)
+})
+
+app.get('/detail/:id', function(request, response){
+    fetchJson(apiItem + '?filter={"id":' + request.params.id + '}').then((items) => { console.log(items.data)
         response.render('detail', {
             
             items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
