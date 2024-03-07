@@ -44,7 +44,8 @@ app.get('/overview', function(request, response) {
 })
 
 app.get('/detail/:id', function(request, response){
-    fetchJson(apiItem + '?filter={"id":' + request.params.id + '}').then((items) => { console.log(items.data)
+    console.log(request.params)
+    fetchJson(apiItem + '?filter={"id":' + request.params.id + '}').then((items) => {
         response.render('detail', {
             
             items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
