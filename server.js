@@ -33,6 +33,15 @@ app.get('/', function(request, response) {
     console.log(apiItem)
 })
 
+app.get('/detail/:id', function(request, response){
+    fetchJson(apiItem).then((items) => { console.log(items.data)
+        response.render('detail', {
+            
+            items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
+        });
+    })
+})
+
 
 // 3. Start de webserver
 
