@@ -34,14 +34,24 @@ app.get('/', function(request, response) {
 })
 
 app.get('/overview', function(request, response) {
-    fetchJson(apiItem).then((items) => { console.log(items.data)
-        response.render('overview', {
-            
-            items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
-        });
-    })
-    console.log(apiItem)
-})
+    fetchJson(apiItem).then((items) => {
+        console.log("API Response:", items);
+
+        // Check if 'data' property exists in the response
+        if (items && items.data) {
+            // Log the data for further inspection
+            console.log("Data in Response:", items.data);
+
+            // Pass the data to the view with the correct variable name
+            response.render('overview', {
+                data: items.data // Ensure the variable name is 'data' here
+            });
+        } else {
+            console.error("Invalid or unexpected API response format");
+            response.status(500).send("Internal Server Error");
+        }
+    });
+});
 
 app.get('/detail/:id', function(request, response){
     console.log(request.params)

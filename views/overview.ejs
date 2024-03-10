@@ -1,13 +1,36 @@
 <%- include('./partials/head') %>
-<main>
-    <% items.forEach(item => { %>
-        <p>
-            <a href="./detail/<%= item.id %>"><%= item.title %></a>
-        </p>
-        <img src="https://fdnd-agency.directus.app/assets/<%= item.afbeelding %>" alt="">
-        <p>
-    <%= item.id %>
-        </p>
-    <% }) %>
+<main class="overview">
+    <ul>
+        <h2>Boeken</h2>
+        <% data.filter(item => item.item_type === 'book').forEach(book => { %>
+            <li>
+                <%= book.title %>
+                <img src="https://fdnd-agency.directus.app/assets/<%= book.afbeelding %>" alt="<%= book.title %> Image">
+                <%= book.price %>
+            </li>
+        <% }); %>
+    </ul>
+
+    <ul>
+        <h2>CD's</h2>
+        <% data.filter(item => item.item_type === 'cd').forEach(cd => { %>
+            <li>
+                <%= cd.title %>
+                <img src="https://fdnd-agency.directus.app/assets/<%= cd.afbeelding %>" alt="<%= cd.title %> Image">
+                <%= cd.price %>
+            </li>
+        <% }); %>
+    </ul>
+
+    <ul>
+        <h2>Activiteiten</h2>
+        <% data.filter(item => item.item_type === 'activity').forEach(activity => { %>
+            <li>
+                <%= activity.title %>
+                <img src="https://fdnd-agency.directus.app/assets/<%= activity.afbeelding %>" alt="<%= activity.title %> Image">
+                <%= activity.price %>
+            </li>
+        <% }); %>
+    </ul>
 </main>
 <%- include('./partials/foot') %>
