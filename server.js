@@ -11,6 +11,7 @@ const apiFamily = await fetchJson(apiUrl + 'oba_family')
 const apiProfile = await fetchJson(apiUrl + 'oba_profile')
 const apiItem = (apiUrl + 'oba_item')
 
+
 // Maak een nieuwe express app aan
 const app = express()
 
@@ -37,14 +38,14 @@ app.get('/overview', function(request, response) {
     fetchJson(apiItem).then((items) => {
         console.log("API Response:", items);
 
-        // Check if 'data' property exists in the response
+    
         if (items && items.data) {
-            // Log the data for further inspection
+    
             console.log("Data in Response:", items.data);
 
-            // Pass the data to the view with the correct variable name
+    
             response.render('overview', {
-                data: items.data // Ensure the variable name is 'data' here
+                data: items.data 
             });
         } else {
             console.error("Invalid or unexpected API response format");
@@ -59,6 +60,7 @@ app.get('/detail/:id', function(request, response){
         response.render('detail', {
             
             items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
+
         });
     })
 })
