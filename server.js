@@ -7,8 +7,8 @@ import fetchJson from './helpers/fetch-json.js'
 
 // Stel het basis endpoint in
 const apiUrl = "https://fdnd-agency.directus.app/items/"
-const apiFamily = await fetchJson(apiUrl + 'oba_family')
-const apiProfile = await fetchJson(apiUrl + 'oba_profile')
+const apiFamily = (apiUrl + 'oba_family')
+const apiProfile = (apiUrl + 'oba_profile')
 const apiItem = (apiUrl + 'oba_item')
 
 
@@ -24,15 +24,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 // 2. routes
-app.get('/', function(request, response) {
-    fetchJson(apiItem).then((items) => { console.log(items.data)
-        response.render('index', {
-            
-            items: items.data/*hier zeg ik dat iedereen getoond moet worden*/
-        });
-    })
-    console.log(apiItem)
-})
+app.get('/', async function(request, response) {
+    try {
+      const families = await fetchJson(apiFamily);
+      const profiles = await fetchJson(apiProfile);
+  
+      console.log(families.data);
+      console.log(profiles.data);
+  
+      response.render('index', {
+        families: families.data,
+        profiles: profiles.data,
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      response.status(500).send('Internal Server Error');
+    }
+  });
 
 app.get('/overview', function(request, response) {
     fetchJson(apiItem).then((items) => {
